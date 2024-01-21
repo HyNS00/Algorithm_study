@@ -1,1 +1,1 @@
-# Algorithm_study
+# 파이썬 풀이 
