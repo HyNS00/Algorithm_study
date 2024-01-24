@@ -97,3 +97,20 @@ my_counter.subtract(other_list)
 print(my_counter)  # Counter({1: 3, 2: 2, 3: 2, 4: 1, 5: 1})
 
 ```
+
+### 알아두면 쓸모 있는 문법
+```python
+타입선언
+
+>> type([])
+<class 'list'>
+
+>> type(())
+<class 'tuple'>
+
+>> type({})
+<class 'dict'>
+
+>> type({1})
+<class 'set>
+```
