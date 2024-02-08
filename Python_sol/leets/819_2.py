@@ -1,10 +1,9 @@
-import re
-from collections import defaultdict
+import re,collections
 class Solution:
     def mostCommonWord(self, paragraph: str, banned: list[str]) -> str:
         paragraph = re.sub(r'[^\w]',' ',paragraph).lower().split()
         
-        check = defaultdict(int)
+        check = collections.defaultdict(int)
         for word in paragraph:
             if not word in banned :
                 check[word] += 1
