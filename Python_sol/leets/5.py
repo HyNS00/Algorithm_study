@@ -7,9 +7,9 @@ class Solution:
             while s[left] == s[right]  and left >= 0 and right < len(s):
                 left -= 1
                 right += 1
-                
-            return s[left+1 : right] # 인덱스를 설정함으로써, 길이를 점차 늘려나갈 수 있게 구성
-        
+                # 인덱스를 설정함으로써, 길이를 점차 늘려나갈 수 있게 구성
+            return s[left+1 : right] # 인덱스로 str구간을 정해서 전체적으로 갈 수 있다.
+                                   
         if len(s) < 2 or s == s[::-1]: # 빠른 계산을 위해, 처음부터 팰린드롬이거나, 문자열의 길이가 1이하일 경우 그대로 반환
             return s
         
