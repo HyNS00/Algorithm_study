@@ -1,6 +1,6 @@
 # 어떻게 확장해나갈지 생각해봐야한다.
 # 글자에 대해 짝수, 홀수를 나눠 생각해야한다.
-
+# https://leetcode.com/problems/longest-palindromic-substring/description/
 class Solution:
     def longestPalindrome(self, s: str) -> str:
         def expand(left : int, right : int) -> str:
