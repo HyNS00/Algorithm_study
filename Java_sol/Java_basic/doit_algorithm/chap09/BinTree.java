@@ -68,5 +68,45 @@ public class BinTree<K,V> {
 
     // 노드에 새로운 데이터를 삽입 -> 이진트리의 조건을 항상 유지해야한다.
     // 알맞은 자리를 찾아가야하고 이미 같은 값이 있다면 추가할 수 없다.
-    
+    private void addNode(Node<K,V> node, K key, V data){
+        int cond = comp(key,node.getKey());
+        // 값을 비교
+        if(cond == 0){
+            return; // 값이 같을시 추가할 수 없으므로 종료
+        }
+        else if(cond < 0){
+            if(node.left == null){
+                node.left = new Node<K,V>(key, data, null, null);
+            }
+            else
+                addNode(node.left, key,data); // 왼쪽서브트리에서 시작
+        }else{
+            if(node.right == null)
+                node.right = new Node<K,V>(key, data, null,null); //오르쪽이 비어있을 경우 자식 노드가 없는 노드를 추가
+            else 
+                addNode(node.right, key, data); //오른쪽 서브트리에서 시작    
+        }   
+    }
+
+    public void add(K key, V data){
+        if(root == null){
+            root = new Node<K,V>(key, data,null,null); //트리가 비어있는 경우, 자식노드가없는 새 루트 노드를 생성
+        }
+        else{
+            addNode(root,key,data);
+        }
+    }
+    // 삭제는 세 가지 경우로 나뉜다.
+    /*
+        1. 자식 노드가 없는 노드를 삭제하는 경우 -> 삭제할 노드를 찾은 뒤, 왼쪽(오른쪽)자식이라면 부모의 왼쪽(오른쪽) 자식 포인터를
+             null로 만든다.
+        2. 자식 노드가 1개인 노드를 삭제하는 경우 -> 삭제할 노드를 찾은 뒤, 왼쪽(오른쪽) 자식이라면 부모의 왼쪽(오른쪽) 포인터가
+            삭제 대상 노드의 자식을 가리키도록 한다.
+        3.  자식 노드가 2개인 개인 노드를 삭제하는 경우 (중요) -> 
+            a.삭제할 노드의 왼쪽 서브트리에서 키 값이 가장 큰 노드를 찾는다.
+            b. 검색한 노드의 데이터를 삭제 대상 노드로 복사한다.
+            c. 검색한 노드를 삭제(왼쪽 서브트리에서 키 값이 가장 큰 노드) -> 자식이 없다면 1번, 자식이 1개만 있을 경우 2번 
+            
+     */
+
 }
