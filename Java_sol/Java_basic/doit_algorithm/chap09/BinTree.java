@@ -108,5 +108,78 @@ public class BinTree<K,V> {
             c. 검색한 노드를 삭제(왼쪽 서브트리에서 키 값이 가장 큰 노드) -> 자식이 없다면 1번, 자식이 1개만 있을 경우 2번 
             
      */
+    public boolean remove(K key){
+        Node<K,V> p = root;
+        Node<K,V> parent = null;
+        boolean isLeftChild = true;
 
+        while(true){
+            if(p == null) // p를 찾는 중, key의 크기에 따라 왼쪽 오른쪽 서브트리
+                return false;
+            int cond = comp(key,p.getKey());
+            if(cond == 0){
+                break;
+            }
+            else{
+                parent = p;
+                if(cond < 0){
+                    isLeftChild = true;
+                    p =p.left;
+                }else{
+                    isLeftChild = false;
+                    p = p.right;
+                }
+            }
+        }
+        if(p.left == null){ //p에 왼쪽 자식이 없음
+            if(p == root){
+                root = p.right;
+            }
+            else if(isLeftChild){
+                parent.left = p.right; // 부모의 왼쪽 포인터가 오른쪽 자식을 가리킨다.
+            }
+            else{
+                parent.right  = p.right; // 부모의 오른쪽 포인터가 오른쪽 자식을 가리킴
+            }
+        }else if(p.right == null){ // p에 오른쪽 자식이 없다.
+            if(p == root){
+                root = p.left;
+            }
+            else if(isLeftChild){
+                parent.left = p.left; // 부모의 왼쪽포인터가 왼쪽 자식을 가리킨다.
+            }
+            else{
+                parent.right = p.left; // 부모의 오른쪽 포인터가 왼쪽 자식을 가리킴
+            }
+        }
+        else{
+            parent =p; 
+            Node<K,V> left = p.left; // p의 왼쪽 서브트리
+            isLeftChild = true;
+            // 왼쪽 서브트리에서 가장 큰 노드를 찾음
+            // 계속해서 오른쪽으로 이동
+            while(left.right != null){
+                parent = left;
+                left = left.right;
+                isLeftChild = false;
+            }
+            p.key = left.key; // left의 키 값을 p로 옮김
+            p.data = left.data; // data를 옮김
+            if(isLeftChild)
+                parent.left =left.left; //
+            else    
+                parent.right = left.left; //left를 삭제
+        }
+        return true;
+    }
+    private void printSubTree(Node node){
+        if(node != null){
+            printSubTree(node.left); // 왼쪽 서브트리 출력
+            System.out.println(node.key+ " " + node.data);
+            printSubTree(node.right); // 오른쪽 서브트리
+        }
+    }
+    public void print(){
+        printSubTree(root);
+    }
 }
